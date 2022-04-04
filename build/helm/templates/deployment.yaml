@@ -52,19 +52,19 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 10
           volumeMounts:
-            - name: secrets
+            - name: {{ include "servicechart.fullname" . }}-secrets
               mountPath: /app/appsettings.secrets.json
               subPath: appsettings.secrets.json
-            - name: configmap
+            - name: {{ include "servicechart.fullname" . }}-configmap
               mountPath: /app/appsettings.config.json
               subPath: appsettings.config.json
       volumes:
-        - name: secrets
+        - name: {{ include "servicechart.fullname" . }}-secrets
           secret:
-            secretName: appsettings
-        - name: configmap
+            secretName: {{ include "servicechart.fullname" . }}-appsettings
+        - name: {{ include "servicechart.fullname" . }}-configmap
           configMap:
-            name: appsettings
+            name: {{ include "servicechart.fullname" . }}-appsettings
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
