@@ -22,6 +22,7 @@ public class VariableSubstitution : AsyncFrostingTask<HelmBuildContext>
       var text = await File.ReadAllTextAsync(file);
       foreach (var token in substitutionToken)
       {
+        context.Log.Information("Transforming {0} to {1} in file: {2}", token.Key, token.Value, file);
         text = text.Replace($"$({token.Key})", token.Key == "projectName" ? token.Value.ToLower() : token.Value);
       }
       var newPath = Path.Combine("dist", Path.GetRelativePath("./helm", file));
