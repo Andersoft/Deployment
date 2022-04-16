@@ -8,11 +8,6 @@ using Cake.Frosting;
 [IsDependentOn(typeof(ConfigureDirectories))]
 public class VariableSubstitution : AsyncFrostingTask<HelmBuildContext>
 {
-  public override bool ShouldRun(HelmBuildContext context)
-  {
-    return context.Preview;
-  }
-
   public override async Task RunAsync(HelmBuildContext context)
   {
     foreach (var file in Directory.EnumerateFiles("./helm", "*", SearchOption.AllDirectories))
