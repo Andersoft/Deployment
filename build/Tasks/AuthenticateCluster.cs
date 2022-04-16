@@ -1,11 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using Cake.Core;
 using Cake.Frosting;
 using CliWrap.Buffered;
 
 [TaskName("Authenticate Cluster")]
-[IsDependentOn(typeof(AuthenticateServicePrincipal))]
+[IsDependentOn(typeof(AuthenticateDockerRegistry))]
 public class AuthenticateCluster : AsyncFrostingTask<HelmBuildContext>
 {
   public override bool ShouldRun(HelmBuildContext context)

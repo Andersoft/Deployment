@@ -88,5 +88,6 @@ public class WellKnownVariables
   public const string ResourceGroup = "resourceGroup";
   public const string ProjectName = "projectName";
   public const string NameSpace = "namespace";
+  public const string Registry = "registry";
 }
 

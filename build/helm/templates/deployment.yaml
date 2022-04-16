@@ -58,6 +58,8 @@ spec:
             - name: {{ include "servicechart.fullname" . }}-configmap
               mountPath: /app/appsettings.config.json
               subPath: appsettings.config.json
+      imagePullSecrets:
+        - name: acr-secret
       volumes:
         - name: {{ include "servicechart.fullname" . }}-secrets
           secret:
