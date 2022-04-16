@@ -8,6 +8,11 @@ using CliWrap.Buffered;
 [IsDependentOn(typeof(AuthenticateServicePrincipal))]
 public class AuthenticateCluster : AsyncFrostingTask<HelmBuildContext>
 {
+  public override bool ShouldRun(HelmBuildContext context)
+  {
+    return context.BuildEnvironment is not "dev";
+  }
+
   public override async Task RunAsync(HelmBuildContext context)
   {
     var result = await CliWrap.Cli.Wrap("az")

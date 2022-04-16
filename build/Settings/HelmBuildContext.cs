@@ -58,6 +58,10 @@ public class HelmBuildContext : FrostingContext
         }
       }
     };
+
+    BuildEnvironment = context.Arguments.HasArgument("buildEnvironment")
+      ? context.Arguments.GetArgument("buildEnvironment")
+      : "dev";
     ProjectName = context.Arguments.GetArgument(WellKnownVariables.ProjectName);
     Preview = bool.TryParse(context.Arguments.GetArgument("preview"), out var preview) && preview;
   }
@@ -65,6 +69,8 @@ public class HelmBuildContext : FrostingContext
   public string ProjectName { get; }
 
   public bool Preview { get; }
+  public string BuildEnvironment { get; set; }
+
 
 
 }
