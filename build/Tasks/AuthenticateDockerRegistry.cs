@@ -8,6 +8,11 @@ using CliWrap.Buffered;
 [IsDependentOn(typeof(AuthenticateServicePrincipal))]
 public class AuthenticateDockerRegistry : AsyncFrostingTask<HelmBuildContext>
 {
+  public override bool ShouldRun(HelmBuildContext context)
+  {
+    return false;
+  }
+
   public override async Task RunAsync(HelmBuildContext context)
   {
 
