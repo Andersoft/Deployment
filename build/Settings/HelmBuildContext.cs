@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.Design;
 using System.IO;
 using Cake.Common.Diagnostics;
 using Cake.Core;
@@ -11,6 +12,10 @@ public class HelmBuildContext : FrostingContext
 
   public HelmBuildContext(ICakeContext context) : base(context)
   {
+    BuildEnvironment = context.Arguments.HasArgument("buildEnvironment")
+      ? context.Arguments.GetArgument("buildEnvironment")
+      : "dev";
+
     var requiredVariables = new string[]
     {
       "projectName",
@@ -31,6 +36,10 @@ public class HelmBuildContext : FrostingContext
     {
       if (string.IsNullOrWhiteSpace(context.Environment.GetEnvironmentVariable(variable)) && string.IsNullOrWhiteSpace(context.Arguments.GetArgument(variable)))
       {
+        if (BuildEnvironment is "dev" && variable is "resourceGroup" or "clusterName")
+        {
+          continue;
+        }
         context.Error("Missing variable: {0}", variable);
         didError = true;
       }
@@ -59,9 +68,7 @@ public class HelmBuildContext : FrostingContext
       }
     };
 
-    BuildEnvironment = context.Arguments.HasArgument("buildEnvironment")
-      ? context.Arguments.GetArgument("buildEnvironment")
-      : "dev";
+
     ProjectName = context.Arguments.GetArgument(WellKnownVariables.ProjectName);
     Preview = bool.TryParse(context.Arguments.GetArgument("preview"), out var preview) && preview;
   }
