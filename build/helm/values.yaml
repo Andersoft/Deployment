@@ -25,5 +25,5 @@ autoscaling:
   enabled: false
  
 service:
-  type: ClusterIP
-  port: 5001
+  type: LoadBalancer
+  port: $(port)

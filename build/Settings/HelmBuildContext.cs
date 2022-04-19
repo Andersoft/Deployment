@@ -19,6 +19,7 @@ public class HelmBuildContext : FrostingContext
     var requiredVariables = new string[]
     {
       "projectName",
+      "port",
       "replicaCount",
       "namespace",
       "servicePrincipalUsername",
