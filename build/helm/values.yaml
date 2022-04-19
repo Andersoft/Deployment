@@ -26,4 +26,4 @@ autoscaling:
  
 service:
   type: LoadBalancer
-  port: $(port)
+  port: 80
