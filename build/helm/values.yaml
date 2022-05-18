@@ -27,3 +27,11 @@ autoscaling:
 service:
   type: ClusterIP
   port: 5001
+
+resources:
+  requests:
+    memory: "150Mi"
+    cpu: "250m"
+  limits:
+    memory: "200Mi"
+    cpu: "500m"
